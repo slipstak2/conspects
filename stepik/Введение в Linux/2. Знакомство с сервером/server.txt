@@ -125,3 +125,9 @@ PgUp, PgDown, стрелки
    
 Esc, Ctrl + C
    выйти из режима просмотра истории
+
+
+sudo adduser <user> vboxsf
+   Добавить пользователя <user> в группу vboxsf для доступа к shared folders
+   
+Для настройки копирования текста используйте меню Devices(Устройства) --> Shared Clipboard(Общий буфер обмена)
