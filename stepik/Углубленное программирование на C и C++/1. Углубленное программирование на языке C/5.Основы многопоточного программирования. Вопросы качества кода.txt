@@ -9,14 +9,14 @@
       if (!P(x)) statementB; else statemantA;
    *  Второй способ решения той же проблемы основан на применении средств, предоставляемых GCC:
       * перекомпиляция с учетом результатов профилирования кода;
-      * использование функций __buildin_expect
+      * использование функций __builtin_expect
          - снабжает компилятор информацией, связанной с предсказанием переходов
          - сообщает компилятору, что наиболее вероятным значением выражения exp является c и возвращает exp
          
-         long __buildin_expect(long exp, long c)
+         long __builtin_expect(long exp, long c)
          
-         #define unlikely(expr)     __buildin_expect(!!(expr), 0)
-         #define likely(expr)       __buildin_expect(!!(expr), 1)
+         #define unlikely(expr)     __builtin_expect(!!(expr), 0)
+         #define likely(expr)       __builtin_expect(!!(expr), 1)
          
          int a;
          srand(time(NULL));
