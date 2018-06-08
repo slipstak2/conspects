@@ -1,0 +1,9 @@
+Лишнер Р. STL. Карманный справочник. — Питер, 2005. — 188 с.
+Мюссер Д., Дердж Ж., Сейни А. C++ и STL. Справочное руководство. — Вильямс, 2010. — 432 с.
+Саммерфилд М. Qt. Профессиональное программирование. Разработка кроссплатформенных приложений на C++. — Символ-Плюс, 2011. — 560 с.
+Шлее М. Qt 4.8. Профессиональное программирование на C++. — БХВ-Петербург, 2012. — 894 с.
+Boost C++ Libraries. URL: http://www.boost.org/.
+Demming, R., Duffy, D.J. Introduction to the Boost C++ Libraries; Volume I – Foundations (Datasim Education BV, 2010).
+Demming, R., Duffy, D.J. Introduction to the Boost C++ Libraries; Volume II – Advanced Libraries (Datasim Education BV, 2012).
+Musser, D.R., Saini, A. STL Tutorial and Reference Guide: C++ Programming with the Standard Template Library (Addison-Wesley, 1995).
+Schäling, B. The Boost C++ Libraries. URL: http://en.highscore.de/cpp/boost/. 
