@@ -157,3 +157,211 @@ std::stable_sort
    * значение, на которое указывает итератор а, является наибольшим в диапазоне и может быть удалено из хипа операцией извлечения(pop), а новое значение - добавлено в хип за время O(logN) операцией размещения (push)
    * результатоами опреации push и pop является корректные хипы.
 
+ИТЕРАТОРЫ: ОБЗОР
+Итераторы(обобщенные указатели) - объекты, предназначенные для обхода последовательности объектов в обобщенном контейнере. В контейнерных классах являются вложенными типами данных.
+
+Итераторы STL:
+   * Входные: входные потоковые
+   * Выходные: выходные потоковые
+   * Однонаправленные
+   * Произвольного доступа
+   * Двунаправленные
+
+ВСТРОЕННЫЕ УКАЗАТЕЛИ С++
+Встроенные типизированные указатели С++ по своим возможностям эквивалентны итераторам произвольного доступа и могут использоваться как таковые в любом из обобщенных алгоритмов STL
+const int N = 100;
+int a[N], b[N];
+std::copy(&a[0], &a[N], &b[0]);
+std::replace(&a[0], &a[N/2], 0, 42)
+
+ИТЕРАТОРЫ В СТАНДАРТНЫХ КОНТЕЙНЕРАХ: ОБЩИЕ СВЕДЕНИЕ
+Шаблоны классов контейнеров STL содержат определения следующих типов итераторов:
+   * изменяемый итератор прямого доступа(допускает преобразование к константому итератору(см. ниже); *i - ссылка)
+      Container<T>::iterator
+   * константный итератор прямого обхода(*i - константная ссылка)
+      Container<T>::const_iterator
+   * изменяемый итератор обратного обхода
+      Container<T>::reverse_iterator
+   * константный итератор обработного обхода:
+      Container<T>::const_reverse_iterator
+
+
+ИТЕРАТОРЫ ВСТАВКИ
+Итераторы вставки "переводят" обобщенные алгоритмы из "режима замены" в "режим вставки", при котором разыменовывание итератора *i влечет за собой добавление элемента при помощи одного из предоставляемых контейнером методов вставки.
+С технической точки зрения, реализованные в STL итераторы вставки являются шаблонами классов, единственными параметром который является контейнерный тип Container:
+   * std::back_insert_iterator<Container> - использует метод класса Container::push_back()
+   * std::front_insert_iterator<Container> - использует метод класса Container::push_front();
+   * std::insert_iterator<Container> - использует метод класса Container::insert();
+
+Пратическое использование итераторов вставки, формируемых "на лету" упрощает применением шаблонов обобщенных функций std::back_inserter(), std::front_inserter() и std::inserter() вида:
+template<typename Container>
+inline std::back_insert_iterator<Container>
+back_inserter(Container &c) {
+   return std::back_insert_iterator<Container>(c);
+}
+
+std::copy(list1.begin(), list1.end(),
+         back_inserter(vector1));
+      // back_insert_iterator<std::vector<int> >(vector1));
+
+ПОТОКОВЫЕ ИТЕРАТОРЫ
+Потоковые итераторы STL предназначены для обеспечения работы обобщенных алгоритмов со стандартными потоками ввода-вывода. Технически представляют собой шаблоны классов:
+   * std::istream_iterator<T> - входной потоковый итератор
+   * std::ostream_iterator<T> - выходной потоковый итератор
+Конструкторы:
+   * std::istream_iterator<T>(std::istream&) - входной итератор для чтения значений типа T из заданного входного потока
+   * std::istream_iterator<T>() - входной итератор - маркер "конец потока" (EOS, end-of-stream)
+   * std::ostream_iterator<T>(std::ostream&, char*) - выходной итератор для записи значений типа T в заданный выходной поток через указанный разделитель.
+
+ПРИМЕР: ПОТОКОВЫЙ ИТЕРАТОР; ОБОБЩЕННЫЙ АЛГОРИТМ find
+// 3-й и 4-ый ар. - рабочий итератор и end-of-stream(EOS)
+std::merge(vector1.begin(), vector1.end(),
+           std::istream_iterator<int>(std::cin),
+           std::istream_iterator<int>(),
+           std::back_inserter(list1));
+
+template<typename InputIterator, typename T>
+InputIterator find(                       // поиск перебором
+                   InputIterator first,   // начало диапазона
+                   InputIterator last,    // конец диапазона
+                   const T& value) {      // значение
+   while(first != last && *first != value)
+      ++first;
+   return first;
+}
+
+template <typename InputIterator,
+          typename OutputIterator>
+OutputIterator copy(InputIterator  first,
+                    InputIterator  last,
+                    OutputIterator result) {
+   while(first != last) {
+      *result = *first;
+      ++first;
+      ++result;
+   }
+   return result;
+}
+
+template<typename ForwardIterator, typename T>
+void replace(ForwardIterator first,
+             ForwardIterator last,
+             const T& x, const T& y) {
+   while(first != last) {
+      if (*first == x)
+         *first = y;
+      ++first;
+   }
+}
+
+ФУНЦИОНАЛЬНЫЕ ОБЪЕКТЫ: ОБЗОР:
+Функциональные объекты((обобщенные функции) - программыне компоненты, применимые к известному количеству фактических параметров(число 0 и более) для получения значения или изменения состояния вычислительной системы
+STL-расширением функции является пользовательский объект типа класса (class) или структуры(struct) с перегруженной операцией-функцией operator().
+Базовыми классами стандартных функциональных объектов STL выступают шаблоны структур std::unary_function и std:binary_function.
+
+template<typename Arg, typename Result>
+struct unary_function {
+   typedef Arg    argument_type;
+   typedef Result result_type;
+};
+
+template <typename Arg1, typename Arg2, typename Result>
+struct binary_function {
+   typedef Arg1   first_argument_type;
+   typedef Arg2   second_argumnet_type;
+   typedef Result result_type;
+}
+
+СТАНДАРТНЫЕ ФУНКЦИОНАЛЬНЫЕ ОБЪЕКТЫ STL
+// для арифметический операций
+template<typename T> struct plus;            // сложение
+template<typename T> struct minus;           // вычитание
+template<typename T> struct multiplies;      // умножение
+template<typename T> struct divides;         // деление
+template<typename T> struct modulus;         // остаток
+template<typename T> struct negative;        // инверсия знака
+
+// для операции сравнения
+template<typename T> struct equal_to;        // равно
+template<typename T> struct not_equal_to;    // не равно
+template<typename T> struct greater;         // больше
+template<typename T> struct less;            // меньше
+template<typename T> struct greater_equal;   // больше или равно
+template<typename T> struct less_equal;      // меньше или равно
+
+// для логических операций
+template<typename T> struct logical_and;     // конъюнкция
+template<typename T> struct logical_or;      // дизъюнкция
+template<typename T> struct logical_not;     // отрицание
+
+ПРИМЕР: ФУНКЦИОНАЛЬНЫЙ ОБЪЕКТ multiplies
+template<typename T>
+class multiplies: public binary_function<T, T, T> {
+   public:
+      T operator() (const T& x, const T& y) const {
+         return x * y;
+      }
+}
+
+АДАПТЕРЫ: ОБЗОР
+Адаптеры модифицируют интерфейс других компонентов STL и технически представляют собой шаблоны классов, конкретизируемые шаблонами контейнеров, итераторов и др.
+Адаптеры STL:
+   Контейнерные:
+      Стек
+      Очередь:
+         Очередь с приоритетами
+   Итераторные:
+      Реверсный итератор
+   Функциональные:
+      Связывающие
+      Для указателей на функцию
+      Отрицающие
+
+КОНТЕЙНЕРНЫЕ АДАПТЕРЫ
+С технической точки зрания, контейнерные адаптеры STL являются шаблонами классов, конкретизируемыми типами хранимых в них элементов и несущих последовательных контейнеров(адаптер std::priority_queue требует также функции сравнения, по умолчанию - std::less<T>).
+Адаптер std::stack допускает конкретизацию вида:
+   * std::stack<T> (эквивалентно std::stack<T, std::deque<T>>)
+   * std::stack<T, std::vector<T>>
+   * std::stack<T, std::list<T>>
+Адаптер std::queue допускает конкретизацию вида:
+   * std::queue<T>(эквивалентно std::queue<T, std::queue<T>>)
+   * std::queue<T, std::deque<T>>
+Адаптер priority_queue допускает конкретизацию вида:
+   * std::priority_queue<T> (эквивалентно std::priority_queue<T, std::vector<T>, std::less<T>>)
+   * std::priority_queue<T, std::deque<T>, std::greater<T>>
+
+
+ФУНКЦИОНАЛЬНЫЕ АДАПТЕРЫ
+Функциональные адаптеры решают задачу конструирования новых функций из существующих и технически представляют собой шаблоны фнукций и классов
+Набольшее практическое значение имеют следующие адаптеры:
+   * связывающие - устанавливают в константу значение первого (std::bind1st() или второго std::bind2nd()) параметра заданной бинарной функции
+   * отрицающие - инверсируют результат унарного (std::not1()) или бинарного(std::not2()) предиката
+
+std::vector<int>::iterator *where = 
+   std::find_if(vector1.begin(), vector1.end(),
+               std::bind2nd(std::greater<int>(), 100));
+   // std::not1(std::bind2nd(std::greater<int(), 100>));
+
+STL в С++11: КОНТЕЙНЕРЫ
+Последовательные контейнеры:
+   std::array<T, N> - массив значений типа T из N элементов
+   std::forward_list<T, Allocator> - однонаправленный(в отличие от std::list) список элементов с "полезной нагрузкой" типа T и дисциплиной распределения памяти, заданной распредителем Allocator
+Неупорядоченные ассоциативные контейнеры:
+   * std::unordered_set<Key, Hash, KeyEqual, Allocator> - набор неповторяющихся объектов типа Key c амортизированным константным временем поиска, вставки и удаления(контейнер для хранения повторяющихся объектов - std::unordered_multiset)
+   * std::unordered_map<Key, T, Hash, KeyEqual, Allocator> - набор пар "ключ-значение" с уникальными ключами типа Key с амортизированным константным временем поиска, вставки и удаления(контейнер для хранения пар с неуникальными ключами - std::unordered_multimap)
+
+STL в С++11: АЛГОРИТМЫ
+Набор алгоритмов STL расширен такими новыми элементами, как:
+   * немодифицирующие последовательные алгоритмы: std::all_of(), std::any_of(), std::none_of(), std::find_if_not()
+   * модифицирующие последовательные алгоритмы: std::copy_if(), std::copy_n(), std::move(), std::move_backward(), std::shuffle();
+   * алгоритмы разбиения: std::is_partitioned(), std::partition_copy(), std::partition_point()
+   * алгоритмы сортировки: std::is_sorted, std::is_sorted_until()
+   * алгоритмы на хипах: std::is_heap(), std::is_heap_until()
+   * алгоритмы поиска набольших и наименьших: std::minmax(), std::minmax_element(), std::is_permutation();
+   * алгоритмы на числах: std::iota()
+   
+STL в С++11: ПРОЧИЕ ЭЛЕМЕНТЫ
+Наконец, новыми элементами С++11 являются:
+   * std::move_iterator<Iterator> - итератор переноса формируемых перегруженной функцией std::move_iterator<Iterator>();
+   * std::next<ForwardIterator>(), std::prev<BidirectionalIterator>() - функции инкремента и декремента итераторов
+   * std::begin<Container>(), std::end<Container>() - функции возврата итераторов в начало или конец контейнера или массива.
