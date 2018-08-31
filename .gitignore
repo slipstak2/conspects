@@ -8,3 +8,7 @@
 *.suo
 *.idb
 
+SFML-2.2
+/kychka-sfml/lesson #1/testsfml/*.opensdf
+/kychka-sfml/lesson #1/testsfml/*.sdf
+/kychka-sfml/lesson #1/testsfml/testsfml/*.user
