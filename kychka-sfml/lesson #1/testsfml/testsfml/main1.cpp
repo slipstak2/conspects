@@ -3,7 +3,7 @@
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(200, 200), "Lesson 1. kychka-pc.ru");
-	sf::CircleShape shape(100.f);
+	sf::CircleShape shape(100.f, 12);
 	shape.setFillColor(sf::Color::Green);
  
 	while (window.isOpen())
