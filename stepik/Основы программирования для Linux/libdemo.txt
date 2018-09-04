@@ -2,3 +2,74 @@ gcc -o hello.o hello.c -c (-c - только компиляция)
 gcc -o main.o main.c -c 
 
 gcc -o hello hello.o main.o
+
+gcc -o libHello.so -shared -fPIC hello.c  (компилирование разделяемой библиотеки)
+
+nm libHello.so (просмотр символов библиотеки)
+slipstak2@slipstak2-VirtualBox:~/stepik-548/libdemo$ nm libHello.so 
+0000000000201028 B __bss_start
+0000000000201028 b completed.7594
+                 w __cxa_finalize@@GLIBC_2.2.5
+00000000000005a0 t deregister_tm_clones
+0000000000000630 t __do_global_dtors_aux
+0000000000200e08 t __do_global_dtors_aux_fini_array_entry
+0000000000201020 d __dso_handle
+0000000000200e18 d _DYNAMIC
+0000000000201028 D _edata
+0000000000201030 B _end
+00000000000006c8 T _fini
+0000000000000670 t frame_dummy
+0000000000200e00 t __frame_dummy_init_array_entry
+0000000000000758 r __FRAME_END__
+0000000000201000 d _GLOBAL_OFFSET_TABLE_
+                 w __gmon_start__
+00000000000006dc r __GNU_EH_FRAME_HDR
+00000000000006a0 T hello_message
+0000000000000550 T _init
+                 w _ITM_deregisterTMCloneTable
+                 w _ITM_registerTMCloneTable
+0000000000200e10 d __JCR_END__
+0000000000200e10 d __JCR_LIST__
+                 w _Jv_RegisterClasses
+                 U printf@@GLIBC_2.2.5
+00000000000005e0 t register_tm_clones
+0000000000201028 d __TMC_END__
+
+gcc main.c -L. -lHello -o hello
+export LD_LIBRARY_PATH=.
+./hello
+
+
+Если hello.c переименовать в hello.cpp(mv hello.c hello.cpp) и еще раз собрать libHello.so, то функция hello_message в символах будет выглядить так:
+00000000000006b0 T _Z13hello_messagePKc
+
+с++filt - утилита, показывающая прототи функции по значению символа
+slipstak2@slipstak2-VirtualBox:~/stepik-548/libdemo$ c++filt _Z13hello_messagePKc
+hello_message(char const*)
+
+
+====Makefile=====
+all: exe lib
+
+exe:	hello.h main.c lib
+	gcc main.c -fPIC -L. -lHello -o hello
+
+lib: 	hello.h hello.c
+	gcc -shared hello.c -fPIC -o libHello.so
+
+clean:
+	rm -f hello libHello.so
+====Makefile=====
+
+ldd - утилита для просмотра от каких разделяемых библиотек зависит файл
+slipstak2@slipstak2-VirtualBox:~/stepik-548/libdemo$ ldd hello
+	linux-vdso.so.1 =>  (0x00007fffc0b5f000)
+	libHello.so => ./libHello.so (0x00007f4d081f6000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f4d07e2c000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f4d083f8000)
+   
+slipstak2@slipstak2-VirtualBox:~/stepik-548/libdemo$ ldd libHello.so
+	linux-vdso.so.1 =>  (0x00007fff09adb000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f8f726d1000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f8f72c9d000)
+
