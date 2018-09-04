@@ -1,0 +1,4 @@
+gcc -o hello.o hello.c -c (-c - только компиляция)
+gcc -o main.o main.c -c 
+
+gcc -o hello hello.o main.o
