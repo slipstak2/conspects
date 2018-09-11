@@ -21,9 +21,12 @@
     <ClInclude Include="view.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="mission.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main12.cpp">
+    <ClCompile Include="main14.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

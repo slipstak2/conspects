@@ -12,10 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="map.h" />
+    <ClInclude Include="mission.h" />
     <ClInclude Include="view.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main12.cpp" />
+    <ClCompile Include="main14.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2735E8BC-A444-4976-9D59-112E09BA08BA}</ProjectGuid>
