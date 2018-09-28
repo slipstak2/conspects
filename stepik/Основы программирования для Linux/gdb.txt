@@ -1,0 +1,121 @@
+ulimit -c unlimited // для создания дампов
+
+bug.cpp:
+===========================
+#include <stdio.h>
+
+int * f()
+{
+        return (int*) 12;
+}
+
+void print(int *v)
+{
+        printf("value=%d", *v);
+}
+
+int main()
+{
+        print(f());
+}
+===========================
+
+> gcc bug.cpp
+> ./a.out
+Segmentation fault (core dumped)
+
+После падения появился файлик core
+
+> gdb -c core ./a.out
+
+(gdb) bt   - backtrace: получить стек вызовов
+#0  0x0000000000400541 in print(int*) ()
+#1  0x0000000000400568 in main ()
+
+Поотлаживаемся:
+> gdb ./a.out
+
+(gdb) b print  - поставить брейк на функцию print
+Breakpoint 1 at 0x400535
+
+(gdb) info breakpoints
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x0000000000400535 <print(int*)+4>
+
+(gdb) r    - или run - запуск исполнения команд
+Starting program: /home/slipstak2/stepik-548/2.5/a.out 
+
+Breakpoint 1, 0x0000000000400535 in print(int*) ()
+
+(gdb) list
+1	<built-in>: No such file or directory. (нет отладочной информации)
+
+Поэтому нужно пересобраться с ключиком -g<0,1,2,3> - Debug information levels. Например с -g3:
+> gcc -g3 bug.cpp
+> gdb ./a.out
+(gdb) b print
+(gdb) run
+Starting program: /home/slipstak2/stepik-548/2.5/a.out 
+
+Breakpoint 1, print (v=0xc) at bug.cpp:10
+10		printf("value=%d", *v);
+
+(gdb) p v  - print значение переменной v
+$1 = (int *) 0xc
+
+(gdb) p/d v
+$2 = 12
+
+(gdb) list
+5		return (int*) 12;
+6	}
+7	
+8	void print(int *v) 
+9	{
+10		printf("value=%d", *v);
+11	}
+12	
+13	int main()
+14	{
+
+(gdb) list -15
+1	#include <stdio.h>
+2	
+3	int * f() 
+4	{
+5		return (int*) 12;
+6	}
+7	
+8	void print(int *v) 
+9	{
+10		printf("value=%d", *v);
+
+(gdb) b 5 - ставим брячку на 5 строке
+
+(gdb) kill - убиваем исполнение приложения
+
+(gdb) info breakpoints
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x000000000040053d in print(int*) at bug.cpp:10
+	breakpoint already hit 1 time
+2       breakpoint     keep y   0x000000000040052a in f() at bug.cpp:5
+
+(gdb) r     - запускаем с самого начала
+tarting program: /home/slipstak2/stepik-548/2.5/a.out 
+
+Breakpoint 2, f () at bug.cpp:5
+5		return (int*) 12;
+
+(gdb) bt
+#0  f () at bug.cpp:5
+#1  0x0000000000400560 in main () at bug.cpp:15
+
+(gdb) fr 1     - перейти в main (первый фрейм)
+#1  0x0000000000400560 in main () at bug.cpp:15
+15		print(f());
+
+(gdb) fr 0     - вернуться обратно
+#0  f () at bug.cpp:5
+5		return (int*) 12;
+
+
