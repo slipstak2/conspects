@@ -11,6 +11,8 @@
 *.opendb
 *.opensdf
 *.sdf
+*.lib
+*.cache
 
 SFML-2.2
 
