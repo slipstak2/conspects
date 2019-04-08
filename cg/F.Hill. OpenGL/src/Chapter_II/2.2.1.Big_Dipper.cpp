@@ -9,9 +9,14 @@ void myDisplay()
    glClear(GL_COLOR_BUFFER_BIT);
 
    glBegin(GL_POINTS);
-      glVertex2i(100, 50);
-      glVertex2i(100, 130);
-      glVertex2i(150, 130);
+	   glVertex2i(289, 190);
+	   glVertex2i(320, 128);
+	   glVertex2i(239,  67);
+       glVertex2i(194, 101);
+       glVertex2i(129,  83);
+       glVertex2i( 75,  73);
+       glVertex2i( 74,  74);
+       glVertex2i( 20,  10);
    glEnd();
    glFlush();
 }
@@ -25,8 +30,8 @@ void myMouse(int button, int state, int x, int y) {
 }
 void myKeyboard(unsigned char key, int x, int y) {
    switch (key) {
-      case 27:
-         exit(0);
+   case 27:
+      exit(0);
    }
 }
 
@@ -37,7 +42,7 @@ void myInit() {
 
    // drawing color: black
    glColor3f(0.0, 0.0, 0.0);
-   glPointSize(4.0);
+   glPointSize(2.0);
 
 
    glMatrixMode(GL_PROJECTION);
@@ -57,7 +62,7 @@ int main(int argc, char* argv[]) {
    glutMouseFunc(myMouse);
    glutKeyboardFunc(myKeyboard);
 
-   
+
    myInit();
    glutMainLoop();
    return 0;
