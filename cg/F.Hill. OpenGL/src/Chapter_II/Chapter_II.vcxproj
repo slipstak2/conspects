@@ -78,12 +78,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="2.2.1.Dot_plots.cpp" />
+    <ClCompile Include="dino.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\utils\utils.vcxproj">
       <Project>{afce3d16-6d2b-4005-8c8f-3beb7fb11d2d}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dino.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
