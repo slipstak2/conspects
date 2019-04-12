@@ -78,15 +78,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dino.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\utils\utils.vcxproj">
       <Project>{afce3d16-6d2b-4005-8c8f-3beb7fb11d2d}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="dino.dat" />
+    <ClCompile Include="labirint.cpp" />
+    <ClCompile Include="labirint_demo.cpp" />
+    <ClCompile Include="labirint_finder.cpp" />
+    <ClCompile Include="labirint_scanner.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="labirint.h" />
+    <ClInclude Include="labirint_finder.h" />
+    <ClInclude Include="labirint_scanner.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
