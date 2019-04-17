@@ -48,7 +48,7 @@ void myDisplay()
    if (lab.mode == GEN_LAB) {
       if (lab.nextGenLab()) {
          glutPostRedisplay();
-         //Sleep(1);
+         Sleep(5);
       } else {
          lab.mode = FIND_PATH;
          Sleep(100);

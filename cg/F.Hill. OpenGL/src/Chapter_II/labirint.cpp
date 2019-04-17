@@ -18,20 +18,34 @@ int Labirint::pack(int row, int col) {
    return row * cols + col;
 }
 
-
 void Labirint::drawLabirint() {
    glColor3i(0, 0, 0);
    for (int i = 0; i <= rows; ++i) {
       for (int j = 0; j <= cols; ++j) {
-         if (e_wall[i][j] && j != cols) {
-            drawLine(dx + i*size, dy + j*size, dx + i * size, dy + (j + 1)*size);
-         }
-         if (s_wall[i][j] && i != rows) {
-            drawLine(dx + i * size, dy + j * size, dx + (i + 1) * size, dy + j*size);
+         if (scanner->visit[i][j]) {
+            drawCell(i, j, EAST);
+            drawCell(i + 1, j, EAST);
+            drawCell(i, j, SOUTH);
+            drawCell(i, j + 1, SOUTH);
          }
       }
    }
 }
+
+void Labirint::drawCell(int row, int col, EDGE_TYPE etype) {
+   if (etype == EAST) {
+      if (e_wall[row][col] && col != cols) {
+         drawLine(dx + row * size, dy + col * size, dx + row * size, dy + (col + 1)*size);
+      }
+   }
+
+   if (etype == SOUTH) {
+      if (s_wall[row][col] && row != rows) {
+         drawLine(dx + row * size, dy + col * size, dx + (row + 1) * size, dy + col * size);
+      }
+   }
+}
+
 void Labirint::draw() {
    if (mode == GEN_LAB) {
       scanner->draw();
@@ -40,6 +54,7 @@ void Labirint::draw() {
    }
    drawLabirint();
 }
+
 bool Labirint::nextGenLab() {
    return scanner->next();
 }

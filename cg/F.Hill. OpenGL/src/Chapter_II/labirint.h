@@ -18,6 +18,11 @@ enum LABIRINT_MODE {
    FIND_PATH = 2
 };
 
+enum EDGE_TYPE {
+   EAST = 0,
+   SOUTH = 1
+};
+
 const int moveX[4] = { -1, 0, 1, 0 };
 const int moveY[4] = { 0, -1, 0, 1 };
 
@@ -31,6 +36,7 @@ public:
    int pack(int row, int col);
 
    void draw();
+   void drawCell(int row, int col, EDGE_TYPE etype);
    void drawLabirint();
 
    bool nextGenLab();
