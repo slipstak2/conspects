@@ -13,6 +13,8 @@
 *.sdf
 *.lib
 *.cache
+*.iobj
+*.ipdb
 
 SFML-2.2
 
