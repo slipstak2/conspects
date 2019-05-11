@@ -1,0 +1,10 @@
+Ставим Ubuntu
+https://stepik.org/lesson/7152/step/5?unit=1265
+
+sudo apt-get install build-essential vim
+
+vim ~/.vimrc
+--------------------------
+set number
+colorscheme darkblue
+--------------------------

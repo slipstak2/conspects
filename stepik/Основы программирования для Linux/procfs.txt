@@ -58,3 +58,6 @@ write(1, "hello\n", 6hello
 )                  = 6
 exit_group(0)                           = ?
 +++ exited with 0 +++
+
+
+/proc/cpuinfo - информация о процессоре и ядрах
