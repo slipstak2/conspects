@@ -1,0 +1,72 @@
+Виды IPC(inter-process communication) в Linux:
+* Файлы
+* Сигналы
+* Каналы (pipes)
+  * именованные (имена)
+  * неименованные (ps aux | grep "...")
+                          ^ символ создание неименованного канала между ps и grep
+  * Очереди сообщений (mq_open, mq_send, ...)
+  * shared memory (разделяемая память)
+  * sockets (сокеты)
+  * posix-семофоры
+  * rpc (remote procedure call): man rpc
+  * ipc (system v)
+
+
+pipe() - создание пайпа
+mkfifo - созданием именованного пайпа
+
+Сигналы
+----------------- <signal.h>
+SIGINT    - 2   завершение
+SIGABRT   - 6   (abort(3))  прервать жестко
+SIGTERM   - 15  просьба, не могла ли бы ты завершиться?
+SIGKILL   - 9   безусловно завершает программу
+SIGCHLD   - 17  завершение потомка
+
+
+Shared memory
+Отображение памяти:
+
+      FFFFF....
+      -----------------------
+1Gb   Ядро
+      Stack  (растет вниз)  |
+                            V
+      Shared memory (динамические библиотеки, область для ipc sm)
+
+                            ^
+      Heap   (растер вверх) |
+      ...
+      Data
+      txt
+      -----------------------
+      0
+
+
+shmget  - получить shared memory
+shmat   - подключиться к существующему региону памяти (attach)
+shmdt   - отключения от региона памяти(detach)
+shmctl  - управление параметрами регионов памяти
+
+ipcs - утилита для анализа ipc
+
+ipcs -m: данные о shared memory
+
+
+Мультиплексирование
+-------------------
+0 - stdin
+1 - stdout
+2 - stderr
+3 - f1
+4 - f2
+5 - f3
+
+
+fd_set watch_list;
+FD_ZERO(&watch_list): обнулить все
+FD_SET(f1, &watch_list):  установить в список наблюдение дескриптор f1
+FD_CLR(f1, &watch_list):  исключить дескриптор f1 из списка наблюдения
+
+int select(f3 + 1, fd_set_read, fd_set_write, fd_set_except, time_wait)
