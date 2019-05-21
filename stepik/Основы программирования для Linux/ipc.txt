@@ -70,3 +70,5 @@ FD_SET(f1, &watch_list):  установить в список наблюден�
 FD_CLR(f1, &watch_list):  исключить дескриптор f1 из списка наблюдения
 
 int select(f3 + 1, fd_set_read, fd_set_write, fd_set_except, time_wait)
+
+FD_ISSET()
