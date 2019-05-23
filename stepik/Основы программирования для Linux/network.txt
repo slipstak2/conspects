@@ -1,0 +1,75 @@
+OSI
+7   FTP, HTTP, SNMP          |
+6   SMTP, RPC, TELNET, DNS  |     Application(4)
+
+5   |         |             |
+4   | UDP     |  TCP        |     Transport (3)
+
+      | Протоколы маршрутизаторов: ICMP, IGMP   |
+3 IP  |                                         | Internet(2)
+      | Протоколы трансляции адресов: ARP, RARP |
+
+2                                               |
+1     IEEE 802.x, Ehternet, ISDN, ATM, FDDI     | Link(1) mac
+
+
+ICMP - протокол управляющий сообщений. ping работает по этому протоколу
+ARP - adress resolution protocol
+RARP - reverse ARP
+mac - media access control
+
+
+
+7 - Прикладной (application)
+6 - Представления (presentation layer)
+5 - Сеансовый (session) - TCP
+4 - Транспортный - UDP, TCP
+3 - Сетевой
+2 - Data Link
+1 - Физический
+
+
+Сокеты, семейства адресов
+-----------------------------------
+
+Прикладные задачи : http -> ftp         | www.yandex.ru, kkv@email.com  | сокеты
+Транспорт         : UDP -> TCP          | IP:port                       | ОС
+Организация сети  :                     | IP, IPX, Ipv6                 | Драйверы: сетевых адаптеров и сетевых протоколов
+Физическая среда  : Wifi -> Ethernet    | Mac                           | Hardware: сетевые адаптеры
+
+Сокет:
+  - Абстрагирует сетевой адрес
+  - Абстрагирует  транспорт
+  - Предоставляем базовые операции ввода/вывода:
+    - открытие соединения (open)
+    - закрытие соединения (close)
+    - запись (write/send)
+    - чтение (read/receive)
+
+TCP/IP:
+IP:port
+
+
+Типы коммуникаций:
+  - unicast:    данные передаются на прямую
+  - multicast:  вещание на несколько узлов
+  - broadcast:  один узел излучает информацию во все стороны и любой узел может ее получить
+
+Взаимодействие по UDP
+-----------------------------------
+Клиент                            Сервер
+s socket                          s socket
+ip:port  bind                     ip:port  bind
+sendto()         --->             recvfrom()
+recvfrom()       <---             sendto()
+
+
+Взаимодействие по TCP
+-----------------------------------
+Клиент                          Сервер
+s0 socket                        s socket: сокет приема
+ip:port bind(s)                 bind(s)
+                                listen() - открыть порт на прослушивание
+connect()      ------->         s1 accept: s1 - сокет соединения(связан с s0)
+send           ------->         recv
+recv           <-------         send
