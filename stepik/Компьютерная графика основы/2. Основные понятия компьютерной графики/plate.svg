@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="1440" height="200">
+   <rect x="0" y="20" height="160" width="1440" fill="rgba(222,222,222,0.5)" />
+   <rect x="51" y="1" height="180" width="180" stroke="gray" stroke-dasharray="10 5" fill="tomato" opacity="0.75" stroke-width="2"/>
+   <circle cx="359" cy="91" r="90" stroke="gray" fill="lightblue" opacity="0.75" stroke-dasharray="10 5" stroke-width="2"/>
+   <polygon points="160,199 340,199 250,43" stroke="darkgray" fill="lightgreen" opacity="0.75" stroke-width="4"/>
+</svg>

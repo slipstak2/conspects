@@ -37,8 +37,8 @@ D = 0 - отразился полностью
 
 Кривые Безье
 ---------------
-TruType(Windows)          использует кривые второго порядка    Quadratic curve
-POstScript(Macintosh)     использует кривые третьего порядка   Cubic curve
+TruеType(Windows)          использует кривые второго порядка    Quadratic curve
+PostScript(Macintosh)      использует кривые третьего порядка   Cubic curve
 
 Кубические кривые:
    * занимают меньше памяти

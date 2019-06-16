@@ -1,0 +1,55 @@
+SVG
+   Линия                line
+   Ломанная линия       polyline
+   Прямоугольник        rect
+   Многоугольник        polygon
+   Окружность           circle
+   Эллипс               ellipse
+   Кривая (Безье)       path
+   
+
+Консольный графический редактор ImageMagick
+------------------------------------------------
+composite -geometry -100+20 filePath1 filePath2 resultFilePath
+                     смещение по x,y
+convert -resize 320x240 sourcePath dstpath
+
+convert sourcePath -fill White -box Black -gravity South -pointsize 100 -annotate +10+5 " Колизей " dstPath
+
+convert srcPath -rotate -90 dstPath
+
+convert -colorspace CMYR srcPath dstPath
+convert -density 300 srcPath dstPath
+
+convert -resize 700x700 srcPath dstPath
+                максимальные размеры, в которые нужно вписать изображение
+                
+convert in.jpg -colorspace sRGB -auto-level -resize 50% -quality 80% out.jpg
+
+
+Консольный видеоредактор FFMPEG
+------------------------------------------------
+Конвертация формата
+   - с перекодированием
+   - без перекодирования
+Сохранить фрагмент видеоролика
+
+ffmpeg -i input.mp4 output.mov
+ffmpeg -i input.mp4 -c:v copy -c:a copy output2.mov (копирование аудио и видео потоков)
+ffmpeg -i input.mp4 -c:a copy -vn from_mp4.m4a (-vn без видео. Извлечение аудиоканала)
+ffmpeg -i input.mp4 -c:v copy -an from_mp4.m4v (-an - audo none)
+ffmpeg -i dvcamera.avi -b:v 1024k -b:a 128k dv-recoded.mp4
+
+ffmpeg -i dvcamera.avi -ss 00:00:03 -t 00:00:05 -c:a copy -c:v copy out.avi
+                           начало      длина    копировать потоки
+                           
+ffmpeg -i input_video.mp4 -ss 00:00:30 -t 00:00:15 -c:a copy -c:v copy output_video.mp4
+ffmpeg -i in.mp4 -i logo.png -filter_complex "[0:v][1:v]overlay=20:20:enable='between(t,2,8)'" -c:a copy out.mp4
+
+ffmpeg -i in.mp4 -vf drawtext="text='I am learning computer graphics!' : fontfile=arial.ttf : fontcolor=white : fontsize=24 : x=6 : y=552" -c:a copy out.mp4
+
+
+ffmpeg -i input_video.mp4 -ss 00:00:30 -t 00:00:10 -c:a copy -c:v copy cropped.mp4
+convert plate.svg -background none -depth 8 -resize 50% plate.png
+ffmpeg -i cropped.mp4 -i plate.png -filter_complex "[0:v][1:v]overlay=y=H-h-30:enable='between(t,1,9)'" -c:a copy plated.mp4
+ffmpeg -i plated.mp4 -vf drawtext="text='hello':fontfile=arial.ttf:fontcolor=black:fontsize=24:x=200:y=476:enable='between(t,2,9)'" -c:a copy result.mp4
