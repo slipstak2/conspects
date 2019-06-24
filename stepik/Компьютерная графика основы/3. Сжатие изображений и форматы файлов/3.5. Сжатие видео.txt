@@ -1,0 +1,30 @@
+Кодирование цифрового видео
+GOP - Group of pictures
+I - Intra frame
+P - Predicted frame
+B - Bidirectional frame
+
+I B P B B I
+
+Кодеки
+H.261:      1988
+   I, P frames
+   Macroblocks, DCT (дискретное косинусное преобразование)
+   352 x 288 max
+MPEG 1      1993
+   B frames
+   4095 x 4095 100mb/s
+MPEG 2      1996
+   TV, DVD
+MPEG 4      1998
+   DivX, XviD,
+   Part 10(AVC, H.264)
+   
+H.265
+VP9
+
+WindowsMedia(wmv)
+QuickTime(mov)
+
+LossLess: HuffYUV, Logarythm
+OpenSource: Theora
