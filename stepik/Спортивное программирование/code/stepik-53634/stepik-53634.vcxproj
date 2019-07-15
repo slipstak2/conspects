@@ -148,7 +148,15 @@
     <Text Include="template.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2.10.8-brackets2.cpp" />
+    <None Include="cont.in" />
+    <None Include="cont2.in" />
+    <None Include="petrol.in" />
+    <None Include="petrol2.in" />
+    <None Include="request2-3.8.in" />
+    <None Include="request2.in" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="3.8.7-request.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
