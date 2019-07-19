@@ -15,7 +15,11 @@
 *.cache
 *.iobj
 *.ipdb
+*.ipch
 
 SFML-2.2
 
 /cg/F.Hill. OpenGL/bin
+/stepik/Спортивное программирование/code/.vs/stepik-53634/v15/ipch/
+/stepik/Спортивное программирование/code/stepik-53634/output.txt
+/stepik/Спортивное программирование/code/stepik-53634/input.txt

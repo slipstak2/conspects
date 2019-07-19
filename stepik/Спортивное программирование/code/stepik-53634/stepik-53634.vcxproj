@@ -148,15 +148,10 @@
     <Text Include="template.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="cont.in" />
-    <None Include="cont2.in" />
-    <None Include="petrol.in" />
-    <None Include="petrol2.in" />
-    <None Include="request2-3.8.in" />
-    <None Include="request2.in" />
+    <None Include="lis.in" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3.8.7-request.cpp" />
+    <ClCompile Include="4.8.8-lis.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

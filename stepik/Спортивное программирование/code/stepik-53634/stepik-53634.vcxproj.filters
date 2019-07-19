@@ -26,27 +26,12 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="request2.in">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="petrol.in">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="petrol2.in">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="cont.in">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="cont2.in">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="request2-3.8.in">
+    <None Include="lis.in">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3.8.7-request.cpp">
+    <ClCompile Include="4.8.8-lis.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
