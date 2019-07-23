@@ -148,10 +148,12 @@
     <Text Include="template.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lis.in" />
+    <None Include="arithm.in" />
+    <None Include="arithm2.in" />
+    <None Include="seq2.in" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="4.8.8-lis.cpp" />
+    <ClCompile Include="4.9.8-arithm.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
