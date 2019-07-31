@@ -8,8 +8,8 @@ typedef vector<int> vi;
 typedef vector<vi> vvi;
 typedef vector<bool> vb;
 
-ifstream cin("salesman.in");
-ofstream cout("salesman.out");
+ifstream cin("input.txt");
+ofstream cout("output.txt");
 
 int n;
 vi permutation;

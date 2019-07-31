@@ -26,18 +26,15 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <None Include="seq2.in">
+    <None Include="time2.in">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="arithm.in">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="arithm2.in">
+    <None Include="time.in">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="4.9.8-arithm.cpp">
+    <ClCompile Include="5.9.11-time2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
